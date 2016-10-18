@@ -1,0 +1,15 @@
+open weka
+look for weak-src and open
+unjar
+copy folder change name to weka
+put in /tmp
+
+open eclipse
+new java project
+configure default
+	/src/main/java
+	/bin/classes
+/tmp/weka
+
+from weka->data get iris and paste in eclipse
+

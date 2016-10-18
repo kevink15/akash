@@ -1,0 +1,96 @@
+#include<iostream>
+#include"pthread.h"
+using namespace std;
+int n;
+
+struct array
+{
+	int *arr;
+	int low;
+	int high;
+};
+
+void * quick(void * a)
+{
+	array *ar = (array *) a;		//typecasting a to type array
+	int low = ar->low;
+	int high = ar->high;
+	pthread_t id = pthread_self();
+
+	if(low<high)
+	{
+		int l = low;
+		int r = high;
+		int pivot = ar->arr[low];
+
+		while(l<r)
+		{
+			while((ar->arr[l]<=pivot) && (l<r))
+				l++;
+			while((ar->arr[r]>pivot) && (l<=r))
+				r--;
+			if(l<=r)
+			{
+				int temp=ar->arr[l];
+				ar->arr[l]=ar->arr[r];
+				ar->arr[r]=temp;
+			}
+		}
+
+		int temp = ar->arr[r];
+		ar->arr[r]=ar->arr[low];
+		ar->arr[low]=temp;
+
+		cout<<"Thread ID: "<<id<<", Pivot: "<<pivot<<endl;
+		pthread_t threads[2];
+
+		array a1, a2;
+
+		a1.arr=new int[n];
+		a2.arr=new int[n];
+
+		a1.arr = ar->arr;
+		a2.arr = ar->arr;
+
+		a1.low = ar->low;
+		a1.high = r-1;
+		a2.low = r+1;
+		a2.high = ar->high;
+
+		pthread_create(&threads[0], NULL, &quick, (void *)&a1);
+		pthread_create(&threads[1], NULL, &quick, (void *)&a2);
+
+		pthread_join(threads[0], NULL);
+		pthread_join(threads[1], NULL);
+
+	}
+}
+
+int main()
+{
+	array a;
+
+	cout<<"Enter the size of the array.\n";
+	cin>>n;
+	a.arr = new int[n];
+	a.low = 0;
+	a.high = n-1;
+
+	for(int i=0;i<n;i++)
+	{
+		cout<<"Enter element "<<(i+1)<<": ";
+		cin>>a.arr[i];
+	}
+
+	quick(&a);
+
+	cout<<"The sorted array is: "<<endl;
+
+	for(int i=0;i<n;i++)
+	{
+		cout<<a.arr[i]<<endl;
+	}
+
+	return 0;
+
+}

@@ -1,0 +1,10 @@
+lex a5.l
+
+yacc -d a5.y
+
+gcc lex.yy.c y.tab.c
+
+./a.out
+
+
+add ; at end of expr

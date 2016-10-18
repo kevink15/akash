@@ -1,0 +1,15 @@
+input:
+
+-
++
+a
+*
+b
+c
++
+c
+*
+d
+e
+
+reg_stack=10

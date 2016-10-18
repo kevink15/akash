@@ -1,0 +1,7 @@
+lex p.l
+
+yacc -d p.y
+
+gcc lex.yy.c y.tab.c
+
+./a.out

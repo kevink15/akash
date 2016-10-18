@@ -1,0 +1,5 @@
+lex lexan.l
+
+gcc lex.yy.c -o main
+
+./main
