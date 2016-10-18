@@ -1,3 +1,11 @@
+#=====================================================
+#Name 	  : B-9
+#Author 	  : JAINESH PATEL(4152)
+#Start Date :
+#End Date   :
+#Batch 	  : R-1
+#=====================================================
+
 from math import log
 from math import sqrt
 from collections import Counter
